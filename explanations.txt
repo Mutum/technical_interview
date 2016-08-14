@@ -32,4 +32,39 @@ Runtime analysis:
 - Since we need to go through each element of string s once and each element of string t once for every element of s, I believe the runtime is O(mn), where m is the number of characters in string s and n is the number of characters in string t.
 
 
+Question 2
+Given a string a, find the longest palindromic substring contained in a. Your function definition should look like question2(a), and return a string.
+
+Clarify the question:
+
+- If we have two or more palindromic substrings that are the longest and the same length, should our algorithm return the first substring in the string or all substrings? For the purposes of this exercise, I will assume we want the first substring.
+- Is a palindromic substring is defined as a string that is equal to itself in reverse?
+- Empty strings are palindromic? I will assume yes
+
+Confirming inputs and outputs:
+
+- Input: a string
+- Output: a string
+
+Test cases:
+
+- None type is not a string, so I don’t think we need to consider it for our algorithm.
+- Since empty strings are palindromic, if our input was an empty string our output should also be an empty string.
+- If we have a string of one character, we should return a string of one character.
+- If we have a string of all different characters, we should return a string of the first character.
+- If we have a string that includes two different palindromes of the same length, the algorithm should output the first string.
+
+Brainstorm:
+
+- We could start by setting up an empty string which will represent the largest palindrome as lp.
+- We could run a for loop for each ith character of the string, and a for loop for each jth subsequent character following the ith character.
+- For each jth and ith character, we could setup a string where the ith character is the first and the jth character is the last. We could then reverse the string and if it is equal to the original string and the number of characters is larger than the current largest palindrome (lp), we could set that as lp.
+- Once the two loops are finished, return lp
+
+Runtime analysis:
+
+- We need to go through each character of string s once. We also need to go through m-1 iterations for each ith character in string s, where m is the number of characters between the ith and last character, inclusive. The most we would need to go through would be n-1 for the first character, so the worst case runtime would be approximately O(n^2).
+
+
+
 

@@ -35,3 +35,35 @@ print question1(c,d)
 #Should return False
 print question1(e,f)
 
+#Code solution for question 2
+
+def question2(s):
+    #initialize largest palindrome substring
+    lp = ''
+    #empty string and one character string cases
+    if len(s) < 2:
+        return s
+    
+    for i in range(len(s)):
+        for j in range(i+1,len(s)-1):
+            #If the string is palindronic and has more characters than
+            #the lp, it becomes the lp.
+            if s[i:j] == s[i:j][::-1] and len(s[i:j]) > len(lp):
+                lp = s[i:j]
+
+    
+    return lp
+
+a = ''
+b = 'a'
+c = 'abcdefg'
+d = 'abacccdcd'
+
+#Should return ''
+print question2(a)
+#Should return a
+print question2(b)
+#Should return 'a'
+print question2(c)
+#Should return 'aba'
+print question2(d)

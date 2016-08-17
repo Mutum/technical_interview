@@ -69,7 +69,8 @@ print question2(c)
 print question2(d)
 
 
-#Code solution for question 2
+
+#Code solution for question 3
 #I had a lot of trouble with this one. Any feedback would be greatly appreciated!
 
 
@@ -146,6 +147,8 @@ a = {'A': [('B', 2), ('C', 6), ('B', 100)],
 
 question3(a)
 
+
+
 #Code for Question 4
 
 
@@ -219,6 +222,83 @@ print question4(a, 1, 0, 1)
 print question4(b, 3, 1, 4)
 #Should return 1
 print question4(c, 0, 1, 2)
+
+
+
+#Code for Question 5
+# Node class 
+class Node:
+    
+    def __init__(self, data):
+        self.data = data
+        self.next = None
  
+class LinkedList:
+ 
+    # Initialize the head of the linkedlist
+    def __init__(self):
+        self.head = None
+ 
+    # Function to insert a new node at the beginning
+    def add_a_node(self, data):
+        new_node = Node(data)
+        new_node.next = self.head
+        self.head = new_node
+
+    def question5(self, ll, m):
+        #If the linkedlist is empty, return None
+        if ll == None:
+            return None
+        #Verify the first node is the head
+        if ll != self.head.data:
+            return 'Node is not the head of the linked list'
+        
+        #Get the number of linked nodes
+        temp = self.head
+        count = 0
+
+        while (temp):
+            count += 1
+            temp = temp.next
+        return count
+        
+        #Create a main and reference pointer
+        main = self.head
+        ref = self.head 
+        n = count - m
+        
+        
+     
+        count  = 0
+        if(self.head is not None):
+            while(count < n ):
+                ref = ref.next
+                count += 1
+ 
+        while(ref is not None):
+            main = main.next
+            ref = ref.next
+ 
+        return main.data
+ 
+ 
+a = LinkedList()
+b = LinkedList()
+b.add_a_node(0)
+c = LinkedList()
+c.add_a_node(20)
+c.add_a_node(4)
+c.add_a_node(15)
+c.add_a_node(35)
+
+#Should return None
+print a.question5(None, 0)
+#Should return 1
+print b.question5(0, 1)
+#Should return 4
+print c.question5(35, 3)
+
+
+
             
 

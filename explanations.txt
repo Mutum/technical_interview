@@ -148,6 +148,41 @@ Runtime Analysis:
 
 Question 5
 
+Find the element in a singly linked list that's m elements from the end. For example, if a linked list has 5 elements, the 3rd element from the end is the 3rd element. The function definition should look like question5(ll, m), where ll is the first node of a linked list and m is the "mth number from the end". You should copy/paste the Node class below to use as a representation of a node in the linked list. Return the value of the node at that position.
+
+class Node(object):
+  def __init__(self, data):
+    self.data = data
+    self.next = None
+
+Clarify the question:
+
+- Can the list contain any type of objects?
+- Can the list contain no objects?
+- 'mth number from the end' means the mth node from the end?
+- Is m always going to be less than or equal to the number of linked nodes?
+
+Confirming inputs and outputs:
+
+- The inputs are the first node of a linked list (ll) and an integer that has to be a number in the range of the number of elements in the chain (m) that represents the mth from the last node in the linked list.
+- The output is the value of a the node at the position.
+
+Test cases:
+
+- A list that contains no nodes. The inputs would have to be None and 0 in that case.
+- A list that contains one node. The input would have to be the name of that node and the position would have to be 1.
+- A list described in the example, which is a linked list of 5 elements and we are trying to find the third element from the end.
+
+Brainstorm:
+
+- We can start by initializing the linked list for each of our test cases using a node class.
+- We will find the total number of nodes in the list, and then subtract from it the mth to get the nth.
+- Next, we can create two points, a main and a ref. We will start with both equal to the head of our linked list and initialize a count at 0. While the count is less than n, we will move the ref to ref.next and increase the count.
+
+Runtime Analysis:
+
+- We have to iterate through each node in the linked list at most twice. If n is the number of nodes in the linked list our big O would be O(n) = 2n, or just O(n) = n.
+
 
 
 

@@ -102,5 +102,52 @@ Runtime Analysis:
 - Overall, the runtime will be O(E) = E*E + Elog(E). Since E^2 is greater than Elog(E) overall, we can approximate the runtime O(E) = E^2.
 
 
+Question 4
+
+Find the least common ancestor between two nodes on a binary search tree. The least common ancestor is the farthest node from the root that is an ancestor of both nodes. For example, the root is a common ancestor of all nodes on the tree, but if both nodes are descendents of the root's left child, then that left child might be the lowest common ancestor. You can assume that both nodes are in the tree, and the tree itself adheres to all BST properties. The function definition should look like question4(T, r, n1, n2), where T is the tree represented as a matrix, where the index of the list is equal to the integer stored in that node and a 1 represents a child node, r is a non-negative integer representing the root, and n1 and n2 are non-negative integers representing the two nodes in no particular order. For example, one test case might be
+
+question4([[0, 1, 0, 0, 0],
+          [0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0],
+          [1, 0, 0, 0, 1],
+          [0, 0, 0, 0, 0]],
+          3,
+          1,
+          4)
+
+
+and the answer would be 3.
+
+Clarify the question:
+
+- Is a node considered an ancestor of itself?
+- Can we assume that the root is in the tree?
+- Looking at the example from the question, 3 is Level 1, 0 and 4 are Level 2, and 1 is Level 3?
+- No values can be repeated twice for nodes?
+
+Confirming inputs and outputs:
+
+- The first input is a matrix, with equal numbers of rows and columns, and elements that are either 1s or 0s. If an element is a 1, the column represents the child number and the row represents the parent number. The next input is an integer which represents the root of the BST. The next two inputs are non-negative integer nodes what we have to find the common ancestor between.
+- The output is a non-negative integer which represents the node that is the common ancestor between the two input nodes.
+
+Test cases:
+
+- A tree with only two nodes. Since n1 and n2 must both be in the algorithm, there must always be a root and therefore there must always be a non-negative integer answer.
+- The test case mentioned above.
+- A test case with four nodes with four levels, unbalanced.
+
+Brainstorm:
+
+- We can start by converting our matrix into a binary search tree by creating a class of node with three variables: value, the node to the left, and node to the right.
+- We have three cases. If n1 and n2 are both less than the root, the common ancestor lies to the left of the root. If n1 and n2 are both greater than the root, the common ancestor lies to the right of the root. Otherwise, the common ancestor is the root. We can use a recursive algorithm to find our least common ancestor that keeps iterating through until the common ancestor is the root.
+
+Runtime Analysis:
+
+- **Not sure how to approach the runtime analysis for this problem. Any suggestions?
+
+
+Question 5
+
+
 
 

@@ -145,3 +145,80 @@ a = {'A': [('B', 2), ('C', 6), ('B', 100)],
  'C': [('B', 5), ('A', 6)]}
 
 question3(a)
+
+#Code for Question 4
+
+
+class Node:
+ 
+    # Constructor to create a new node
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+def initialize(T, node):
+    #Initialize a BST
+    r = node.value
+    for j in range(len(T)):
+        value = T[r][j]
+        #If the child is greater in value compared to the node, 
+        #put it to the left.
+        if (value == 1 and j > r):
+            node.right = Node(j)
+            return initialize(T, node.right)
+        #If the child is greater in value compared to the node, 
+        #put it to the left.
+        if (value == 1 and j < r):
+            node.left = Node(j)
+            return initialize(T, node.left)
+
+def lca(root, n1, n2):
+
+    # If both n1 and n2 are smaller than root, then LCA
+    # lies in left
+    if(root.value > n1 and root.value > n2):
+        return lca(root.left, n1, n2)
+ 
+    # If both n1 and n2 are greater than root, then LCA
+    # lies in right 
+    if(root.value < n1 and root.value < n2):
+        return lca(root.right, n1, n2)
+ 
+    return root 
+
+def question4(T, r, n1, n2):
+    root = Node(r)
+    
+    #Initialize the BST
+    initialize(T,root)
+    
+    #Use lca to find the least common ancestor
+    lca(root, n1, n2)
+ 
+    return root.value
+    print root.value, root.right.value, root.right.right.value
+    
+    #Test cases
+
+a = [[0,0],
+    [1,0]]
+b = [[0, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 1],
+    [0, 0, 0, 0, 0]]
+c = [[0, 1, 0, 0],
+    [0, 0, 1, 0],
+    [0, 0, 0, 1],
+    [0, 0, 0, 0]]
+
+#Should return 1 
+print question4(a, 1, 0, 1)
+#Should return 3
+print question4(b, 3, 1, 4)
+#Should return 1
+print question4(c, 0, 1, 2)
+ 
+            
+

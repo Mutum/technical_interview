@@ -24,12 +24,15 @@ Test Cases:
 
 Brainstorm:
 
-- We could set a counter to 0 and iterate through the s string. Every time an element in s is the same as t we could add one to our counter. If the counter is equal to the number of characters in t, then return True. But if there are duplicate characters in s that are the same as a character in t they would be counted twice.
-- If we iterate through s and find a match with t, we could mark a boolean variable r as True. When we are finished iterating through t and r is True, we could add one to the counter.
+- We can start by making both strings lowercase, since ‘Aud’ is equivalent to ‘aud’ in this example.
+-Next, if t is an empty string, we can return True, since an empty substring t is an anagram of any string s. 
+-We can run a for loop for every character in the string. The for loop can check whether, for each character s[i], the sorted string of length len(t) is equal to the sorted string with character s[i] with length len(t). 
 
 Runtime analysis:
 
-- Since we need to go through each element of string s once and each element of string t once for every element of s, I believe the runtime is O(n,m) = nm, where m is the number of characters in string s and n is the number of characters in string t.
+- Since we need to go through each element of string s once, I believe the runtime is O(n), where n is the number of characters in string s.
+
+- We don’t need to maintain any objects during the algorithm, so the space complexity is O(1).
 
 
 Question 2

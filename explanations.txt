@@ -66,7 +66,8 @@ Brainstorm:
 
 Runtime analysis:
 
-- We need to go through each character of string s once. We also need to go through m-1 iterations for each ith character in string s, where m is the number of characters between the ith and last character, inclusive. The most we would need to go through would be n-1 for the first character, so the worst case runtime would be approximately O(n) = n^2.
+- We need to go through each character of string s once. We also need to go through m-1 iterations for each ith character in string s, where m is the number of characters between the ith and last character, inclusive. The most we would need to go through would be n-1 for the first character, so the worst case runtime would be approximately O(n^2).
+- We need to store the largest palindrome substring. The substring will never be greater than n in length, so the space complexity will be O(n).
 
 Question 3
 Given an undirected graph G, find the minimum spanning tree within G. A minimum spanning tree connects all vertices in a graph with the smallest possible total weight of edges. Your function should take in and return an adjacency list structured like this:
@@ -77,7 +78,7 @@ Given an undirected graph G, find the minimum spanning tree within G. A minimum 
 
 Clarify the question:
 
-- If there are two or minimum spanning trees, do we produce one? Pick the first the algorithm finds.
+- If there are two or more minimum spanning trees, do we produce one? Pick the first one the algorithm finds.
 - If there is a graph with no nodes, would the output be an empty dictionary?
 
 Confirming inputs and outputs:
@@ -89,20 +90,20 @@ Test cases:
 
 - If G was an empty dictionary, the output would be an empty dictionary.
 - If G had one element with no edges, it would be initialized as {‘A’ : None} for example. The output should be the same.
-- If G was an adjacency list with two minimum spanning trees, the algorithm would pick the first.
 
 Brainstorm:
 
 - We will use a greedy choice algorithm in order to find the minimum spanning algorithm.
 - We can start by sorting the weights of the edges in increasing order.
-- We could then iterate through the weights, starting with the smallest. If it forms a cycle with the spanning tree, discard it. If not, include it in the spanning tree.
-- If there are N nodes, the minimum spanning tree will have N-1 edges. Therefore, repeat until there are N-1 edges.
+- We could then iterate through the edges, starting with the edge with the smallest weight. If it forms a cycle with the spanning tree, discard it. If not, include it in the spanning tree.
+- Once we have iterated through all the weights, convert the minimum spanning tree into an adjacency matrix and return it.
 
 Runtime Analysis:
 
 -  If E is the number of edges, we have to sort E weights. If we use the python function sorted(), it uses Timsort. Timsort is a hybrid between merge and insertion sort. Best case, it’s O(E) = E. Average and worst case, it’s O(E) = Elog(E).
 - Next, we need to iterate through the edges starting with the edge with the smallest weight. Best case, we will only need to iterate through N-1 edges. Worst case, we will need to check them all. For each edge, we will need to check if it forms a cycle when added to the edges already selected for the minimum spanning tree. Best case is the cycle only contains one edge, worst case it contains all of them. So this step is approximately O(E) = E*E.
 - Overall, the runtime will be O(E) = E*E + Elog(E). Since E^2 is greater than Elog(E) overall, we can approximate the runtime O(E) = E^2.
+- Since the maximum amount of space that we would need to use would be an adjacency list and a list to hold the edges, our big O notation would be O(V + E + 1), where V is the number of vertices.
 
 
 Question 4

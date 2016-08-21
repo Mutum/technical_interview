@@ -46,19 +46,19 @@ print question1(g,k)
 
 
 
-#Code solution for question 2
+# Code solution for question 2
 
 def question2(s):
-    #initialize largest palindrome substring
+    
+    # initialize largest palindrome substring
     lp = ''
-    #empty string and one character string cases
+    # empty string and one character string cases
     if len(s) < 2:
         return s
     
     for i in range(len(s)):
         for j in range(i+1,len(s)-1):
-            #If the string is palindronic and has more characters than
-            #the lp, it becomes the lp.
+            # If the string is palindronic and has more characters than the lp, it becomes the lp.
             if s[i:j] == s[i:j][::-1] and len(s[i:j]) > len(lp):
                 lp = s[i:j]
 
@@ -81,82 +81,93 @@ print question2(d)
 
 
 
-#Code solution for question 3
-#I had a lot of trouble with this one. Any feedback would be greatly appreciated!
+# Code solution for question 3
 
+
+parent = dict()
+rank = dict()
 
 def sortbyweight(graph):
-    #Make a list of edges based on weights in ascending order
-    edge_list = []
+    # Make a list of edges based on weights in ascending order
+    edges = []
     for node1 in graph:
         for i in range(len(graph[node1])):
-            edge = sorted([node1, graph[node1][i][0], graph[node1][i][1]])
-            if edge not in edge_list:
-                edge_list.append(edge)
-    edge_list = sorted(edge_list)
+            edge = sorted((node1, graph[node1][i][0], graph[node1][i][1]))
+            edge = tuple(edge)
+            if edge not in edges:
+                edges.append(edge)
+    edges = sorted(edges)
 
-    return edge_list
+    return edges
 
-def cyclic(graph):
-    #check to see if the graph with the added edge forms a cycle.
-    #Make a dict with keys as nodes and values as sets of the nodes it's connected to.
-    nodes = []
-    g = {}
-    for node in graph:
-        nodes.append(node)
-        for i in range(len(graph[node])): 
-            g[node] = set(graph[node][i][0]) 
-    
-    def dfs(graph, start):
-        visited, stack = set(), [start]
-        while stack:
-            vertex = stack.pop()
-            if vertex not in visited:
-                visited.add(vertex)
-                stack.extend(graph[vertex] - visited)
-        return(len(visited) == len(nodes))
-    
-    
-    dfs(g, nodes[0])
-    
+def make_set(v):
+    parent[v] = v
+    rank[v] = 0
+
+def find(v):
+    if parent[v] != v:
+        parent[v] = find(parent[v])
+    return parent[v]
+
+def union(v1, v2):
+    root1 = find(v1)
+    root2 = find(v2)
+    if root1 != root2:
+        if rank[root1] > rank[root2]:
+            parent[root2] = root1
+        else:
+            parent[root1] = root2
+            if rank[root1] == rank[root2]: rank[root2] += 1
+
+def adjacency(graph, edges):
+    for edge in edges:
+        weight, v1, v2 = edge
+        for v in graph:
+            if v1 == v:
+                graph[v].append((v2, weight))
+            if v2 == v:
+                graph[v].append((v1, weight))
+    return graph
+
 def question3(graph):
-    #Sort edges by weight
-    edge_list = sortbyweight(graph)
-    N = len(edge_list)
-    edge_count = 0
-    #Initialize an empty minimum spanning tree graph
-    mst = {}
-    for node in graph:
-        mst[node] = []
+    # Initiate a mst dict
+    mst_dict = {}
     
+    # Setup parent and rank dicts
+    for v in graph:
+        mst_dict[v] = []
+        make_set(v)
     
-    #If # of edges in mst == N-1, stop loop        
-    while edge_count < N-1:
-        #Add the lowest weighted edge and check to see if the graph is cyclical. If so, remove edge.
-        for edge in edge_list:
-            #Add the edge to the mst
-            for node in mst:
-                if node == edge[1]:
-                    mst[node].append((edge[2], edge[0]))
-                if node == edge[2]:
-                    mst[node].append((edge[1], edge[0]))
-                #Check to see if the graph is cyclical
-                if cyclic(mst):
-                    #If it is, remove the edge
-                    for node in mst:
-                        if node == edge[1]:
-                            mst[node].remove((edge[2], edge[0]))
-                        if node == edge[2]:
-                            mst[node].remove((edge[1], edge[0]))
-                else:
-                    edge_count += 1
-        return mst
+    # Create a minimum spanning tree
+    mst = set()
+    
+    # Create a list of edges
+    edges = sortbyweight(graph)
+    
+    for edge in edges:
+        weight, v1, v2 = edge
+        if find(v1) != find(v2):
+            union(v1, v2)
+            mst.add(edge)
+    
+    #Create an adjacency matrix
+    return adjacency(mst_dict, mst)
+
 
 a = {'A': [('B', 2), ('C', 6), ('B', 100)],
  'B': [('A', 2), ('C', 5)],
  'C': [('B', 5), ('A', 6)]}
 
-question3(a)
+b = {'A': [('B', 2)],
+ 'B': [('A', 2)]}
+
+c = {}
+
+
+
+print question3(a)
+print question3(b)
+print question3(c)
 
 
 

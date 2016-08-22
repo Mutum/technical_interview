@@ -212,7 +212,7 @@ def lca(root, n1, n2):
 
 def question4(T, r, n1, n2):
     root = Node(r)
-    #Initialize the BST
+    # Initialize the BST
     initialize(T, root)
     
     # Use lca to find the least common ancestor
@@ -244,7 +244,7 @@ print question4(c, 1, 1, 3)
 
 
 
-#Code for Question 5
+# Code for Question 5
 # Node class 
 class Node:
     
@@ -265,40 +265,33 @@ class LinkedList:
         self.head = new_node
 
     def question5(self, ll, m):
-        #If the linkedlist is empty, return None
+        # If the linkedlist is empty, return None
         if ll == None:
             return None
-        #Verify the first node is the head
+        # Verify the first node is the head
         if ll != self.head.data:
             return 'Node is not the head of the linked list'
         
-        #Get the number of linked nodes
+        # Get the number of linked nodes
         temp = self.head
-        count = 0
+        total = 0
 
         while (temp):
-            count += 1
+            total += 1
             temp = temp.next
-        return count
+
+        ref = self.head
         
-        #Create a main and reference pointer
-        main = self.head
-        ref = self.head 
-        n = count - m
+        #Find the position of the node from the head
+        n = total - m
         
+        count = 0
         
-     
-        count  = 0
-        if(self.head is not None):
-            while(count < n ):
-                ref = ref.next
-                count += 1
- 
-        while(ref is not None):
-            main = main.next
+        while(count < n ):
             ref = ref.next
+            count += 1
  
-        return main.data
+        return ref.data
  
  
 a = LinkedList()
@@ -310,11 +303,11 @@ c.add_a_node(4)
 c.add_a_node(15)
 c.add_a_node(35)
 
-#Should return None
+# Should return None
 print a.question5(None, 0)
-#Should return 1
+# Should return 1
 print b.question5(0, 1)
-#Should return 4
+# Should return 4
 print c.question5(35, 3)
 
 

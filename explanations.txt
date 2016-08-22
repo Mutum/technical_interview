@@ -186,7 +186,8 @@ Brainstorm:
 
 Runtime Analysis:
 
-- We have to iterate through each node in the linked list at most twice. If n is the number of nodes in the linked list our big O would be O(n) = 2n, or just O(n) = n.
+- We have to iterate through each node in the linked list at most twice. If n is the number of nodes in the linked list our big O would be O(2n), or just O(n).
+-We have a space complexity of n nodes, so it would be O(n).
 
 
 

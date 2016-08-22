@@ -147,7 +147,8 @@ Brainstorm:
 
 Runtime Analysis:
 
-- **Not sure how to approach the runtime analysis for this problem. Any suggestions?
+- We are running through the number of nodes twice; once to initialize the list and the second to find the lowest common ancestor. Big O would be O(2N), where N is the number of nodes. 
+- We are creating N objects of the Node class, so our big O space complexity would be O(N).
 
 
 Question 5

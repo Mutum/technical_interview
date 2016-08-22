@@ -182,24 +182,22 @@ class Node:
         self.left = None
         self.right = None
 
-def initialize(T, node):
-    #Initialize a BST
-    r = node.value
-    for j in range(len(T)):
-        value = T[r][j]
-        #If the child is greater in value compared to the node, 
-        #put it to the left.
-        if (value == 1 and j > r):
-            node.right = Node(j)
-            return initialize(T, node.right)
-        #If the child is greater in value compared to the node, 
-        #put it to the left.
-        if (value == 1 and j < r):
-            node.left = Node(j)
-            return initialize(T, node.left)
+def initialize(T, n):
+    for i in range(len(T)):
+        # If the child is smaller in value compared to the node, 
+        # put it to the right.
+        if (T[n.value][i] == 1 and i > n.value):
+            n.right = i
+            initialize(T, Node(i))
+        
+        # If the child is greater in value compared to the node, 
+        # put it to the left.
+        if (T[n.value][i] == 1 and i < n.value):
+            n.left = i
+            initialize(T, Node(i))
 
 def lca(root, n1, n2):
-
+    
     # If both n1 and n2 are smaller than root, then LCA
     # lies in left
     if(root.value > n1 and root.value > n2):
@@ -210,21 +208,19 @@ def lca(root, n1, n2):
     if(root.value < n1 and root.value < n2):
         return lca(root.right, n1, n2)
  
-    return root 
+    return root.value 
 
 def question4(T, r, n1, n2):
     root = Node(r)
-    
     #Initialize the BST
-    initialize(T,root)
+    initialize(T, root)
     
-    #Use lca to find the least common ancestor
-    lca(root, n1, n2)
- 
-    return root.value
-    print root.value, root.right.value, root.right.right.value
+    # Use lca to find the least common ancestor
+    return lca(root, n1, n2)
     
-    #Test cases
+    
+    
+# Test cases
 
 a = [[0,0],
     [1,0]]
@@ -238,12 +234,13 @@ c = [[0, 1, 0, 0],
     [0, 0, 0, 1],
     [0, 0, 0, 0]]
 
-#Should return 1 
+# Should return 1 
 print question4(a, 1, 0, 1)
-#Should return 3
+# Should return 3
 print question4(b, 3, 1, 4)
-#Should return 1
-print question4(c, 0, 1, 2)
+# Should return 1
+print question4(c, 1, 1, 3)
+
 
 
 
